@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 30px;
+        }
+        form {
+            max-width: 500px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        }
+        h2 {
+            text-align: center;
+            color: #004c99;
+        }
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #004c99;
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff6600;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<form id="registrationForm" onsubmit="return validateForm()">
+    <h2>Registration Form</h2>
+
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" placeholder="Enter First Name">
+    <div class="error" id="firstNameError"></div>
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" placeholder="Enter Last Name">
+    <div class="error" id="lastNameError"></div>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter Password">
+    <div class="error" id="passwordError"></div>
+
+    <label for="email">Email ID:</label>
+    <input type="text" id="email" placeholder="Enter Email">
+    <div class="error" id="emailError"></div>
+
+    <label for="mobile">Mobile Number:</label>
+    <input type="text" id="mobile" placeholder="Enter Mobile Number">
+    <div class="error" id="mobileError"></div>
+
+    <label for="address">Address:</label>
+    <textarea id="address" rows="3" placeholder="Enter Address"></textarea>
+    <div class="error" id="addressError"></div>
+
+    <button type="submit">Register</button>
+</form>
+
+<script>
+function validateForm() {
+    // Clear previous error messages
+    document.getElementById("firstNameError").innerHTML = "";
+    document.getElementById("lastNameError").innerHTML = "";
+    document.getElementById("passwordError").innerHTML = "";
+    document.getElementById("emailError").innerHTML = "";
+    document.getElementById("mobileError").innerHTML = "";
+    document.getElementById("addressError").innerHTML = "";
+
+    let isValid = true;
+
+    // First Name validation
+    const firstName = document.getElementById("firstName").value.trim();
+    if (!/^[A-Za-z]{6,}$/.test(firstName)) {
+        document.getElementById("firstNameError").innerHTML = "First Name must be at least 6 alphabets only.";
+        isValid = false;
+    }
+
+    // Last Name validation
+    const lastName = document.getElementById("lastName").value.trim();
+    if (lastName === "") {
+        document.getElementById("lastNameError").innerHTML = "Last Name cannot be empty.";
+        isValid = false;
+    }
+
+    // Password validation
+    const password = document.getElementById("password").value;
+    if (password.length < 6) {
+        document.getElementById("passwordError").innerHTML = "Password must be at least 6 characters long.";
+        isValid = false;
+    }
+
+    // Email validation
+    const email = document.getElementById("email").value.trim();
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+    if (!emailPattern.test(email)) {
+        document.getElementById("emailError").innerHTML = "Enter a valid email (e.g., name@domain.com).";
+        isValid = false;
+    }
+
+    // Mobile Number validation
+    const mobile = document.getElementById("mobile").value.trim();
+    if (!/^\d{10}$/.test(mobile)) {
+        document.getElementById("mobileError").innerHTML = "Mobile number must be exactly 10 digits.";
+        isValid = false;
+    }
+
+    // Address validation
+    const address = document.getElementById("address").value.trim();
+    if (address === "") {
+        document.getElementById("addressError").innerHTML = "Address cannot be empty.";
+        isValid = false;
+    }
+
+    return isValid;
+}
+</script>
+
+</body>
+</html>
